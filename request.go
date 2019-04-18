@@ -182,6 +182,8 @@ func (s *Server) handleConnect(ctx context.Context, conn conn, req *Request) err
 			resp = connectionRefused
 		} else if strings.Contains(msg, "network is unreachable") {
 			resp = networkUnreachable
+		} else if strings.Contains(msg, "TTL expired") {
+			resp = ttlExpired
 		}
 		if err := sendReply(conn, resp, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
